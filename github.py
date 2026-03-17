@@ -6,8 +6,8 @@ import requests
 ACCOUNT_FILE = 'accounts.json'
 
 class Github:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
+        self.name = ''
         self.session = requests.Session()
         self.accounts = self.load_accounts()
 
@@ -124,5 +124,5 @@ class Github:
             raise Exception(f"Failed to get usage data: {page.status_code} - {page.text}")
 
 if __name__ == "__main__":
-    github = Github("greenlanddd2")
+    github = Github()
     github.get_usage()

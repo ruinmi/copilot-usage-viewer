@@ -20,7 +20,7 @@ def print_all_usage(github, chat=False, completions=False):
             print(f"Error fetching usage for account '{account_name}': {e}")
   
 def main():
-    github = Github("greenlanddd")
+    github = Github()
     print_all_usage(github, chat=False, completions=True)
     
 if __name__ == "__main__":

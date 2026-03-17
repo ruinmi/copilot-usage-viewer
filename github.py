@@ -44,10 +44,10 @@ class Github:
         soup = BeautifulSoup(page.content, "html.parser")
         form = soup.select_one('form[action="/session"]:not([class])')
         if isinstance(form, Tag):
-            authenticity_token = form.select_one('input[name="authenticity_token"]').get("value")
-            required_field_name = form.select_one('input[name*="required_field"]').get("name")
-            timestamp = form.select_one('input[name="timestamp"]').get("value")
-            timestamp_secret = form.select_one('input[name="timestamp_secret"]').get("value")
+            authenticity_token = form.select_one('input[name="authenticity_token"]').get("value") # type: ignore
+            required_field_name = form.select_one('input[name*="required_field"]').get("name") # type: ignore
+            timestamp = form.select_one('input[name="timestamp"]').get("value") # type: ignore
+            timestamp_secret = form.select_one('input[name="timestamp_secret"]').get("value") # type: ignore
             
             form_data = {
                 "commit": "Sign in",
@@ -68,7 +68,7 @@ class Github:
             page = self.session.get('https://github.com/sessions/two-factor/recovery')
             soup = BeautifulSoup(page.content, "html.parser")
             if soup:
-                authenticity_token = soup.select_one('input[name="authenticity_token"]').get("value")
+                authenticity_token = soup.select_one('input[name="authenticity_token"]').get("value") # type: ignore
                 response = self.session.post('https://github.com/sessions/two-factor/recovery', data={
                     "authenticity_token": authenticity_token,
                     "recovery_code": self.accounts[self.name]['recovery_codes'].pop(0)
@@ -87,7 +87,7 @@ class Github:
         url = 'https://github.com/settings/auth/recovery-codes'
         page = self.session.get(url)
         soup = BeautifulSoup(page.content, "html.parser")
-        authenticity_token = soup.select_one('form[action="/settings/auth/recovery-codes"] input[name="authenticity_token"]').get("value")
+        authenticity_token = soup.select_one('form[action="/settings/auth/recovery-codes"] input[name="authenticity_token"]').get("value") # type: ignore
         page = self.session.post(
             url,
             data={
